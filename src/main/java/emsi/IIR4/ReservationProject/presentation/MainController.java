@@ -2,27 +2,22 @@ package emsi.IIR4.ReservationProject.presentation;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.ui.Model;
+
 @Controller
 public class MainController {
 
-//index 
-	@GetMapping("/")
-	public String index() {
-		return "index.html";
-	}
-	
-	  // register form
-	  @GetMapping("/register")
-	  public String register() {
-	    return "register.html";
-	  }
+    @GetMapping("/")
+    public String index() {
+        return "index"; // Assuming you have an index.html in your templates
+    }
+    
+    @GetMapping("/register")
+    public String register() {
+        return "register"; // Assuming you have a register.html in your templates
+    }
 
-  // Login form
-  @GetMapping("/login1")
-  public String login() {
-    return "login.html";
-  }
-
+    @GetMapping("/signup")
+    public String signup() {
+        return "signup"; // Assuming you have a signup.html in your templates
+    }
 }
