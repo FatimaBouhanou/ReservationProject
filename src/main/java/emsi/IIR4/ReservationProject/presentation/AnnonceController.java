@@ -1,5 +1,8 @@
 package emsi.IIR4.ReservationProject.presentation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -22,11 +25,16 @@ public class AnnonceController {
     private final IServiceAnnonce as;
 
     @GetMapping("/home")
-    public String getHome(Model model) {
-        java.util.List<Annonce> listAnnonce = as.listerAnnonce(); // Fetch all announcements
+    public String getHome(Model model,@RequestParam(defaultValue ="0") int numPage ) {
+    	Page<Annonce> listAnnonce = as.listerAnnonce(numPage);
+    	int currentPage = numPage;
+    	int totalPage = listAnnonce.getTotalPages();
         model.addAttribute("list", listAnnonce);
+        model.addAttribute("currentPage", currentPage);
+		model.addAttribute("totalPage", totalPage);
         return "index";
     }
+    
 
     @GetMapping("/addAnnonce")
     public String getFormAdd(Model model) {
@@ -69,4 +77,56 @@ public class AnnonceController {
         as.supprimerAnnonce(id);
         return "redirect:/home";
     }
+    //---------------------------------------------
+    @GetMapping("/booking")
+    public String showBookingForm(@RequestParam Integer id, Model model) throws Exception {
+       
+        Annonce selectedAnnonce = as.rechercherParId(id);
+        
+        model.addAttribute("selectedAnnonce", selectedAnnonce);
+        // Return the booking page
+        return "booking";
+    }
+    //---------------------------------------------
+    @GetMapping("/ads")
+    public String getAds(Model model, @RequestParam(defaultValue = "0") int numPage) {
+        Page<Annonce> liste = as.listerAnnonce(numPage);
+        model.addAttribute("list", liste);
+
+        int currentPage = liste.getNumber(); // Get the current page number
+        int totalPage = liste.getTotalPages(); // Get the total number of pages
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPage", totalPage);
+
+        return "listAnnonces";
+    }
+
+
+    @GetMapping("/searchAnnonce")
+    public String rechercherParId(@RequestParam(name = "annonceId") Integer searchQuery, Model model) {
+        try {
+            Annonce annonce = as.rechercherParId(searchQuery);
+            if (annonce != null) {
+                List<Annonce> annonces = new ArrayList<>();
+                annonces.add(annonce);
+                model.addAttribute("liste", annonces);
+            } else {
+                model.addAttribute("errorMessage", "Client introuvable");
+            }
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Erreur");
+        }
+        return "searchResult";
+    }
+
+
+	//search by name
+    @GetMapping("/searchByName")
+    public String searchByName(@RequestParam("annonceName") String annonceName, Model model) throws Exception {
+        List<Annonce> searchResults = as.searchByName(annonceName);
+        model.addAttribute("list", searchResults);
+        return "searchResult"; // Replace "your-template-name" with the name of your Thymeleaf template
+    }
+    
 }

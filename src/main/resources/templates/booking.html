@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Form with Announcement Details</title>
+    <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css">
+    <style>
+        /* Custom CSS to prevent label overlapping */
+        .form-label {
+            margin-top: 10px; /* Adjust as needed */
+        }
+        /* Add outline to input fields */
+        .form-outline .form-control {
+            border: 1px solid #ced4da; /* Bootstrap default outline */
+            border-radius: .25rem; /* Bootstrap default border radius */
+        }
+        .form-outline .form-control:focus {
+            border-color: #80bdff; /* Bootstrap focus outline color */
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Bootstrap focus shadow */
+        }
+        /* Additional styles for layout */
+        .announcement-details {
+            float: left;
+            width: 40%; /* Adjusted width */
+            padding: 20px;
+            border: 1px solid #ced4da; /* Add border */
+            border-radius: .25rem; /* Add border radius */
+            margin-bottom: 20px; /* Add margin for separation */
+            margin-right: 20px; /* Add margin between sections */
+        }
+        .booking-form {
+            float: right;
+            width: 50%;
+            padding: 20px;
+            border: 1px solid #ced4da; /* Add border */
+            border-radius: .25rem; /* Add border radius */
+        }
+    </style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+		<div class="container-fluid">
+			<a class="navbar-brand" th:href="@{/}">Reservation</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" th:href="@{/}">Home</a></li>
+				</ul>
+<form class="d-flex">
+                    <a href="/" class="btn btn-light">Logout</a>
+                    
+                </form>
+
+			</div>
+		</div>
+	</nav>
+<br><br>
+<div class="container">
+    <div class="row">
+        <!-- Announcement Details -->
+        <div th:if="${selectedAnnonce != null}" class="col-md-6 announcement-details">
+            <h2>Ad Details</h2>
+            <p>Ad Name: <span th:text="${selectedAnnonce.annonceName}"></span></p>
+            <p>Description: <span th:text="${selectedAnnonce.description}"></span></p>
+            <p>Price: <span th:text="${selectedAnnonce.price}"></span></p>
+            <p>Company: <span></span></p>
+            <p>Availability: <span th:text="${selectedAnnonce.dispo}"></span></p>
+        </div>
+        <!-- Booking Form -->
+      <div class="col-md-6 booking-form">
+    <h2>Booking Form</h2>
+    <form method="POST" th:action="@{/ajouterBooking}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="bookService">Book Service</label>
+            <!-- Use form-control-sm class for smaller input -->
+            <input type="date" class="form-control form-control-sm" id="bookService" name="bookService" required>
+            <small class="form-text text-muted">Date of Booking</small>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" >Book</button>
+    </form>
+</div>
+    </div>
+</div>
+
+</body>
+</html>

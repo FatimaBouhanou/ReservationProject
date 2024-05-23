@@ -12,8 +12,39 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">Reservation</a>
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active"
+                            aria-current="page" th:href="@{/}">Home</a></li>
+                </ul>
+                <form class="d-flex">
+                    <a href="/login" class="btn btn-light">Login</a>
+                    <div class="dropdown">
+                        <button class="btn btn-light ms-2 dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Signup
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" th:href="@{/signup}">Client Signup</a>
+                            <a class="dropdown-item" th:href="@{/signupCompany}">Company Signup</a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </nav>
     <div class="container">
-        <form method="POST" th:action="@{/modifier(id = ${annonce.annonceId})}">
+        <form method="POST" th:action="@{/modifier(id = ${annonce.annonceId})}" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="annonceName" class="form-label">Annonce Name</label>
                 <input th:value="${annonce.annonceName}" type="text" class="form-control" id="annonceName"
@@ -21,7 +52,8 @@
             </div>
             <div class="mb-3">
                 <label for="desc" class="form-label">Description</label>
-                <input th:value="${annonce.description}" type="text" class="form-control" id="description" name="description">
+                <input th:value="${annonce.description}" type="text" class="form-control" id="description"
+                    name="description">
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
@@ -31,6 +63,7 @@
                 <label for="dispo" class="form-label">Availability</label>
                 <input th:value="${annonce.dispo}" type="text" class="form-control" id="dispo" name="dispo">
             </div>
+            
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

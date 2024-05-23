@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import emsi.IIR4.ReservationProject.dao.entities.Annonce;
 import emsi.IIR4.ReservationProject.dao.repositories.IAnnonceRepo;
 import emsi.IIR4.ReservationProject.service.IService.IServiceAnnonce;
+import emsi.IIR4.ReservationProject.service.IService.IServiceBooking;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.AssertFalse.List;
 import lombok.Data;
@@ -16,11 +17,11 @@ import lombok.Data;
 @Data
 @Transactional
 @Service
-public class ServiceAnnonceImpl implements IServiceAnnonce{
+public class ServiceBookingImpl implements IServiceBooking{
 	private final IAnnonceRepo ar;
 
 	@Override
-	public void ajouterAnnonce(Annonce a) {
+	public void ajouterBooking(Annonce a) {
 		// TODO Auto-generated method stub
 		ar.save(a);
 		

@@ -1,0 +1,24 @@
+.backing{
+	background: url("../img/beach.png");
+	
+	height: 100%;
+	width: 1500px;
+	background-repeat: no-repeat;
+	position: fixed;
+	background-size: cover;
+	 
+}
+
+.navbar .nav-item .nav-link{
+	font-size: 20px;
+	color:black;
+}
+
+.navbar .nav-item:hover .nav-link{
+	background: white;
+	color:black;
+	border-radius:10px;
+}
+.black-text{
+	color:balck;
+}
